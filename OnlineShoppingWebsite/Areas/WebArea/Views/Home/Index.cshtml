@@ -1,0 +1,297 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/WebArea/Views/Shared/_Layout.cshtml";
+}
+<br>
+<br>
+<br>
+<br>
+<div class="container" style="margin-top:70px">
+    <div>
+        <div class="slideshow-container">
+            <div class="webSlides">
+                <img src="~/Image/Fuji_EN_TallHero_Confidence_Jan19_1X._CB458553799_.jpg" />
+            </div>
+
+            <div class="webSlides">
+                <img src="~/Image/Ship45EN_1X._CB454091417_.jpg" />
+            </div>
+
+            <div class="webSlides">
+                <img src="~/Image/DH_W_S_FashionSneakers_EN1X._CB455675737_.jpg" />
+            </div>
+        </div>
+        <br>
+
+        <div>
+
+            <div class="row" id="arts_crafts">
+                <h2>Arts & Crafts</h2>
+            </div>
+
+            <div class="row" id="automotive">
+                <h2>Automotive</h2>
+            </div>
+
+            <div class="row" id="baby">
+                <h2>Baby</h2>
+            </div>
+
+            <div class="row" id="beauty_personal_care">
+                <h2>Beauty & Personal Care</h2>
+            </div>
+
+            <div class="row" id="books">
+                <h2>Books</h2>
+            </div>
+
+            <div class="row" id="computer">
+                <h2>Computer</h2>
+            </div>
+
+            <div class="row" id="digitalmusic">
+                <h2>Digital Music</h2>
+            </div>
+
+            <div class="row" id="electronics">
+                <h2>Electronics</h2>
+            </div>
+
+            <div class="row" id="kindlestore">
+                <h2>Kindle Store</h2>
+            </div>
+
+            <div class="row" id="primevideo">
+                <h2>Prime Video</h2>
+            </div>
+
+            <div class="row" id="womensfashion">
+                <h2>Women's Fashion</h2>
+            </div>
+
+            <div class="row" id="mensfashion">
+                <h2>Men's Fashion</h2>
+            </div>
+
+            <div class="row" id="girlsfashion">
+                <h2>Girl's Fashion</h2>
+            </div>
+
+            <div class="row" id="boysfashion">
+                <h2>Boy's Fashion</h2>
+            </div>
+
+            <div class="row" id="deals">
+                <h2>Deals</h2>
+            </div>
+
+            <div class="row" id="health_household">
+                <h2>Health & Household</h2>
+            </div>
+
+            <div class="row" id="home_kitchen">
+                <h2>Home & Kitchen</h2>
+            </div>
+
+            <div class="row" id="industrial_scientific">
+                <h2>Industrial & Scientific</h2>
+            </div>
+
+            <div class="row" id="luggage">
+                <h2>Luggage</h2>
+            </div>
+
+        </div>
+    </div>
+    <br>
+</div>
+
+<script src="~/Scripts/WebJavaScript.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        var url = "/WebArea/Home/GetAllProductList";
+
+        $.post(url, {}, function (data) {
+            data = JSON.parse(data);
+
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                var department = item.Product_Department;
+
+                if (item.Product_Department == "Arts & Crafts") {
+                    if (item.ImageList.length == 0) {
+                        showProductDepartmentwise(department, "arts_crafts", item.Product_Name, item.ID, "photo.jpg");
+                    }
+                    else {
+                        showProductDepartmentwise(department, "arts_crafts", item.Product_Name, item.ID, item.ImageList[0].Guid + item.ImageList[0].Extension);
+                    }
+                }
+
+                else if (item.Product_Department == "Automotive") {
+                    if (item.ImageList.length == 0) {
+                        showProductDepartmentwise(department, "automotive", item.Product_Name, item.ID, "photo.jpg");
+                    }
+                    else {
+                    showProductDepartmentwise(department, "automotive", item.Product_Name, item.ID, item.ImageList[0].Guid + item.ImageList[0].Extension);
+                    }
+                }
+
+                else if (item.Product_Department == "Baby") {
+                    if (item.ImageList.length == 0) {
+                        showProductDepartmentwise(department, "baby", item.Product_Name, item.ID, "photo.jpg");
+                    }
+                    else {
+                    showProductDepartmentwise(department, "baby", item.Product_Name, item.ID, item.ImageList[0].Guid + item.ImageList[0].Extension);
+                    }
+                }
+
+                else if (item.Product_Department == "Beauty & Personal Care") {
+                    if (item.ImageList != null) {
+                        showProductDepartmentwise(department, "beauty_personal_care", item.Product_Name, item.ID, "photo.jpg");
+                    }
+                    else {
+                    showProductDepartmentwise(department, "beauty_personal_care", item.Product_Name, item.ID, item.ImageList[0].Guid + item.ImageList[0].Extension);
+                    }
+                }
+
+                else if (item.Product_Department == "Books") {
+                    if (item.ImageList.length == 0) {
+                        showProductDepartmentwise(department, "books", item.Product_Name, item.ID, "photo.jpg");
+                    }
+                    else {
+                    showProductDepartmentwise(department, "books", item.Product_Name, item.ID, item.ImageList[0].Guid + item.ImageList[0].Extension);
+                    }
+                }
+
+                else if (item.Product_Department == "Computer") {
+                    if (item.ImageList.length == 0) {
+                        showProductDepartmentwise(department, "computer", item.Product_Name, item.ID, "photo.jpg");
+                    }
+                    else {
+                     showProductDepartmentwise(department, "computer", item.Product_Name, item.ID, item.ImageList[0].Guid + item.ImageList[0].Extension);
+                    }
+                }
+
+                else if (item.Product_Department == "Digital Music") {
+                    if (item.ImageList.length == 0) {
+                        showProductDepartmentwise(department, "digitalmusic", item.Product_Name, "photo.jpg");
+                    }
+                    else {
+                    showProductDepartmentwise(department, "digitalmusic", item.Product_Name, item.ID, item.ImageList[0].Guid + item.ImageList[0].Extension);
+                    }
+                }
+
+                else if (item.Product_Department == "Electronics") {
+                    if (item.ImageList.length == 0) {
+                        showProductDepartmentwise(department, "electronics", item.Product_Name, item.ID, "photo.jpg");
+                    }
+                    else {
+                    showProductDepartmentwise(department, "electronics", item.Product_Name, item.ID, item.ImageList[0].Guid + item.ImageList[0].Extension);
+                    }
+                }
+
+                else if (item.Product_Department == "Kindle Store") {
+                    if (item.ImageList.length == 0) {
+                        showProductDepartmentwise(department, "kindlestore", item.Product_Name, item.ID, "photo.jpg");
+                    }
+                    else {
+                    showProductDepartmentwise(department, "kindlestore", item.Product_Name, item.ID, item.ImageList[0].Guid + item.ImageList[0].Extension);
+                    }
+                }
+
+                else if (item.Product_Department == "Prime Video") {
+                    if (item.ImageList.length == 0) {
+                        showProductDepartmentwise(department, "primevideo", item.Product_Name, item.ID, "photo.jpg");
+                    }
+                    else {
+                    showProductDepartmentwise(department, "primevideo", item.Product_Name, item.ID, item.ImageList[0].Guid + item.ImageList[0].Extension);
+                    }
+                }
+
+                else if (item.Product_Department == "Women's Fashion") {
+                    if (item.ImageList.length == 0) {
+                        showProductDepartmentwise(department, "womensfashion", item.Product_Name, item.ID, "photo.jpg");
+                    }
+                    else {
+                    showProductDepartmentwise(department, "womensfashion", item.Product_Name, item.ID, item.ImageList[0].Guid + item.ImageList[0].Extension);
+                    }
+                }
+
+                else if (item.Product_Department == "Men's Fashion") {
+                    if (item.ImageList.length == 0) {
+                        showProductDepartmentwise(department, "mensfashion", item.Product_Name, "photo.jpg");
+                    }
+                    else {
+                    showProductDepartmentwise(department, "mensfashion", item.Product_Name, item.ID, item.ImageList[0].Guid + item.ImageList[0].Extension);
+                    }
+                }
+
+                else if (item.Product_Department == "Girl's Fashion") {
+                    if (item.ImageList.length == 0) {
+                        showProductDepartmentwise(department, "girlsfashion", item.Product_Name, item.ID, "photo.jpg");
+                    }
+                    else {
+                    showProductDepartmentwise(department, "girlsfashion", item.Product_Name, item.ID, item.ImageList[0].Guid + item.ImageList[0].Extension);
+                    }
+                }
+
+                else if (item.Product_Department == "Boy's Fashion") {
+                    if (item.ImageList.length == 0) {
+                        showProductDepartmentwise(department, "boysfashion", item.Product_Name, item.ID, "photo.jpg");
+                    }
+                    else {
+                    showProductDepartmentwise(department, "boysfashion", item.Product_Name, item.ID, item.ImageList[0].Guid + item.ImageList[0].Extension);
+                    }
+                }
+
+                else if (item.Product_Department == "Deals") {
+                    if (item.ImageList.length == 0) {
+                        showProductDepartmentwise(department, "deals", item.Product_Name, item.ID, "photo.jpg");
+                    }
+                    else {
+                    showProductDepartmentwise(department, "deals", item.Product_Name, item.ID, item.ImageList[0].Guid + item.ImageList[0].Extension);
+                    }
+                }
+
+                else if (item.Product_Department == "Health & Household") {
+                    if (item.ImageList.length == 0) {
+                        showProductDepartmentwise(department, "health_household", item.Product_Name, item.ID, "photo.jpg");
+                    }
+                    else {
+                    showProductDepartmentwise(department, "health_household", item.Product_Name, item.ID, item.ImageList[0].Guid + item.ImageList[0].Extension);
+                    }
+                }
+
+                else if (item.Product_Department == "Home & Kitchen") {
+                    if (item.ImageList.length == 0) {
+                        showProductDepartmentwise(department, "home_kitchen", item.Product_Name, item.ID, "photo.jpg");
+                    }
+                    else {
+                    showProductDepartmentwise(department, "home_kitchen", item.Product_Name, item.ID, item.ImageList[0].Guid + item.ImageList[0].Extension);
+                    }
+                }
+
+                else if (item.Product_Department == "Industrial & Scientific") {
+                    if (item.ImageList.length == 0) {
+                        showProductDepartmentwise(department, "industrial_scientific", item.Product_Name, item.ID, "photo.jpg");
+                    }
+                    else {
+                    showProductDepartmentwise(department, "industrial_scientific", item.Product_Name, item.ID, item.ImageList[0].Guid + item.ImageList[0].Extension);
+                    }
+                }
+
+                else if (item.Product_Department == "Luggage") {
+                    if (item.ImageList.length == 0) {
+                        showProductDepartmentwise(department, "luggage", item.Product_Name, item.ID, "photo.jpg");
+                    }
+                    else {
+                    showProductDepartmentwise(department, "luggage", item.Product_Name, item.ID, item.ImageList[0].Guid + item.ImageList[0].Extension);
+                    }
+                }
+            }
+        });
+    });
+</script>

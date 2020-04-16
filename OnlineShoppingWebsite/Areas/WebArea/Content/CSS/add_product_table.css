@@ -1,0 +1,29 @@
+﻿#add_product_table, #u_add_product_table, .single_product_table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#add_product_table td, #add_product_table th, #u_add_product_table td, #u_add_product_table th,
+    .single_product_table td{
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    #add_product_table tr:nth-child(even), #u_add_product_table tr:nth-child(even),
+    .single_product_table tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+article {
+        width: auto;
+        height: auto;
+        margin: auto;
+        margin-top: 10px;
+}
+
+.thumbnail {
+    height: 100px;
+    margin: 10px;
+}

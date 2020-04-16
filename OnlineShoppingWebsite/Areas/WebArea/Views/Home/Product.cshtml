@@ -1,0 +1,112 @@
+﻿@model OnlineShoppingWebsite.Areas.WebArea.Models.ProductVM
+
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Areas/WebArea/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container" style="margin-top: 150px;">
+
+    <div class="col-lg-12 row">
+        <div class="col-lg-3">
+            <!-- Slideshow container -->
+            <h2 style="text-align:center">@Model.Product_Name</h2>
+
+            <div class="container">
+                @foreach (var item in Model.ImageList)
+                {
+                    <div class="mySlides">
+                        <img src="/Image/ProductImages/@item.Guid@item.Extension" style="width:1140px; height:500px;">
+                    </div>
+                }
+
+                <a class="s_p_prev_slide" onclick="plusSlides(-1)">❮</a>
+                <a class="s_p_next_slide" onclick="plusSlides(1)">❯</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-12 row" style="margin-top:20px; align-self:center;">
+        <table class="single_product_table">
+            <tbody>
+                <tr>
+                    <td>
+                        Product Name
+                    </td>
+                    <td>
+                        @Model.Product_Name
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Product Department
+                    </td>
+                    <td>
+                        @Model.Product_Department
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Product Price
+                    </td>
+                    <td>
+                        @Model.Product_Price
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Product In Stock
+                    </td>
+                    <td>
+                        @Model.Product_On_Stock
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Product Description
+                    </td>
+                    <td>
+                        @Model.Product_Description
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-lg-12 row" style="margin-top:20px; align-self:center;">
+        <button class="btn btn-default" type="button" onclick="Add_Product_To_Cart(@Model.ID)">Add To Cart</button>
+    </div>
+
+
+</div>
+
+<link href="~/Areas/WebArea/Content/CSS/single_product_slideshow.css" rel="stylesheet" />
+<link href="~/Areas/WebArea/Content/CSS/add_product_table.css" rel="stylesheet" />
+<script src="~/Scripts/WebJavaScript.js"></script>
+
+<script>
+    var single_product_slideIndex = 1;
+    single_product_showSlides(single_product_slideIndex);
+
+    function plusSlides(n) {
+        single_product_showSlides(single_product_slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        single_product_showSlides(single_product_slideIndex = n);
+    }
+
+    function single_product_showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        if (n > slides.length) { single_product_slideIndex = 1 }
+        if (n < 1) { single_product_slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+
+        slides[single_product_slideIndex - 1].style.display = "block";
+    }
+</script>

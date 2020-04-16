@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Areas/WebArea/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" style="margin-top:150px;">
+    <div class="col-lg-12">
+        <div class="wrapper wrapper-content">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="row">
+                        <h2>Cart Product list</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <hr />
+                <table id="cartProductListTable">
+                    <thead>
+                        <tr>
+                            <th>Product Image</th>
+                            <th>Product Name</th>
+                            <th>Product Department</th>
+                            <th>Product Price</th>
+                            <th>Setting</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        GetAllCartProductList();
+    });
+
+
+    function GetAllCartProductList() {
+        var url = "/WebArea/Home/GetCartProductList";
+        $.post(url, {}, function (data) {
+            data = JSON.parse(data);
+            var tbodyHtml = "";
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+
+                tbodyHtml += '<tr paramID=' + item.ID + '>\
+                    <td><img src="/Image/ProductImages/' + item.ImageList[0].Guid + item.ImageList[0].Extension + '" class="product_list_image_in_datatable"/></td>\
+                        <td>' + item.Product_Name + '</td><td>' + item.Product_Department + '</td><td>' + item.Product_Price + '</td><td>\
+                        <a href="/WebArea/Home/Product/'+ item.ID + '" class="btn btn-success btn-xs"><i class="fa fa-arrow-circle-o-right"></i></a>\
+                        <a class="btn btn-danger btn-xs" href="/WebArea/Home/DeleteCartProduct/'+ item.ID + '"><i class="fa fa-remove"></i></a>\
+                        </td></tr> ';
+            }
+
+            $("#cartProductListTable tbody").html(tbodyHtml);
+            $("#cartProductListTable").dataTable();
+        });
+    }
+
+</script>
+

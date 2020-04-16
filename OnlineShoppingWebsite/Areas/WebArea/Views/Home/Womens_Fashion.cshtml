@@ -1,0 +1,26 @@
+﻿@model List<OnlineShoppingWebsite.Areas.WebArea.Models.ProductVM>
+
+@{
+    ViewBag.Title = "Womens_Fashion";
+    Layout = "~/Areas/WebArea/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <div class="row" style="margin-top:170px;">
+        <h2>Womens_Fashion</h2>
+
+        @foreach (var item in Model)
+        {
+
+            <div class="column text-block">
+                <h4>@item.Product_Name</h4>
+                <a href="/WebArea/Home/Product/@item.ID">
+                    <img src="/Image/ProductImages/@item.ImageList[0].Guid@item.ImageList[0].Extension" />
+                </a>
+                <p>@item.Product_Department</p>
+                <a onclick="Add_Product_To_Cart('+ id +')">Add To Cart</a>
+            </div>
+        }
+    </div>
+</div>

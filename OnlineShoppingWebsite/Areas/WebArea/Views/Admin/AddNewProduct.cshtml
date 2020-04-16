@@ -1,0 +1,211 @@
+﻿
+@{
+    ViewBag.Title = "AddNewProduct";
+    Layout = "~/Areas/WebArea/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-lg-12" style="margin-top:170px;">
+    <div class="container ">
+        <h2>Add New Product</h2>
+        <table id="add_product_table">
+            <tbody>
+                <tr>
+                    <td> Product Name</td>
+                    <td>
+                            <input id="product_name" placeholder="Name" />
+                    </td>
+                </tr>
+
+                <tr>
+                <td>
+                Product Department
+            </td>
+                <td>
+                        <select class="form-control" id="productDepartmentRefID">
+                            <option value="All Departments">All Departments</option>
+                            <option value="Arts_Crafts">Arts & Crafts</option>
+                            <option value="Automotive">Automotive</option>
+                            <option value="Baby">Baby</option>
+                            <option value="Beauty_Personal_Care">Beauty & Personal Care</option>
+                            <option value="Books">Books</option>
+                            <option value="Computer">Computer</option>
+                            <option value="Digital Music">Digital Music</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Kindle Store">Kindle Store</option>
+                            <option value="Prime Video">Prime Video</option>
+                            <option value="Womens_Fashion">Women's Fashion</option>
+                            <option value="Mens_Fashion">Men's Fashion</option>
+                            <option value="Girls_Fashion">Girl's Fashion</option>
+                            <option value="Boys_Fashion">Boy's Fashion</option>
+                            <option value="Deals">Deals</option>
+                            <option value="Health_Household">Health & Household</option>
+                            <option value="Home_Kitchen">Home & Kitchen</option>
+                            <option value="Industrial_Scientific">Industrial & Scientific</option>
+                            <option value="Luggage">Luggage</option>
+                        </select>
+                    </td>
+            </tr>
+
+            <tr>
+                <td>Product Price</td>
+                <td>
+
+                   <input id="product_price" placeholder="TL" />
+                </td>
+                    </tr>
+
+                    <tr>
+                    <td> Product In Stock
+                </td>
+                    <td>
+                        @if (Model != null)
+                        {
+                            <input id="product_in_stock" type="number" min="1" placeholder="@Model.Product_On_Stock" />
+                        }
+                    </tr>
+
+                    <tr>
+                    <td> Product Description<td>
+                        <form method="post">
+                        <textarea id="sumnote" style="width: 958px; height: 245px;"></textarea>
+                        </form>
+                    </td >
+                </tr>
+
+                <tr>
+                    <td> Product Photos
+                </td>
+                <td>
+                    <article>
+                        <label for="product_photos">Select multiple files: </label>
+                        @if (Model != null)
+                        {
+                            <input id="product_photos" type="file" multiple />
+                            <output id="photo_result" />
+                        }
+                        </article>
+                        </td>
+                        </tr>
+                        </tbody>
+                        </table>
+
+        <div style="margin-top:20px;">
+            <button type="button" onclick="Cancel_Adding()"> Return To Product List</button>
+            <button type="button" onclick="Add_Product()" id="add_product_button">Add Product</button>
+        </div>
+</div>
+</div>
+
+<link href="~/Areas/WebArea/Content/CSS/add_product_table.css" rel="stylesheet" />
+
+
+<script>
+
+window.onload = function()
+{
+    //Check File API support
+    if (window.File && window.FileList && window.FileReader)
+    {
+        var filesInput = document.getElementById("product_photos");
+
+        filesInput.addEventListener("change", function(event) {
+
+            var files = event.target.files; //FileList object
+            var output = document.getElementById("photo_result");
+
+
+            for (var i = 0; i < files.length; i++)
+            {
+                var file = files[i];
+
+                //Only pics
+                if (!file.type.match('image'))
+                    continue;
+
+                var picReader = new FileReader();
+
+                picReader.addEventListener("load", function(event){
+
+                    var picFile = event.target;
+
+                    var div = document.createElement("div");
+
+                    div.innerHTML = '<div class="row">\
+    <button type = "button" class="btn btn-xs btn-danger" onclick="Remove(this)"> <i class="fa fa-remove"></i> </button>\
+    <img class="thumbnail" src="' + picFile.result + '" title="' + picFile.name + '" />\
+    </div>';
+
+                    output.insertBefore(div, null);
+
+                });
+
+                 //Read the image
+                picReader.readAsDataURL(file);
+            }
+
+        });
+    }
+    else
+    {
+        console.log("Your browser does not support File API");
+    }
+}
+
+//UploadImages
+function UploadImages(id)
+{
+    const formData = new FormData();
+    const files = document.getElementById('product_photos').files;
+       for (var i = 0; i < files.length; i++) {
+            formData.append('files',  files[i]);
+       }
+
+    $.ajax({
+        type: "POST",
+        dataContent: "application/json",
+        data: formData,
+        dataType: 'json',
+        contentType: false,
+        processData: false,
+        url: "/WebArea/Admin/AddProductImage/" + id,
+        success: location.replace("http://localhost:50083/WebArea/Admin/Index")
+    });
+}
+
+function Remove(remove)
+{
+        $(remove).closest("div").remove();
+}
+
+function Add_Product()
+{
+        var name = $("#product_name").val();
+        var department = $("#productDepartmentRefID option:selected").text();
+        var price = $("#product_price").val();
+        var stock = $("#product_in_stock").val();
+        var description = $("#sumnote").val();
+
+        $.post("/WebArea/Admin/AddProduct",
+            { name: name, department: department, price: price, stock: stock, description: description },
+            function (data) {
+                if (data != 0) {
+                    UploadImages(data);
+                    alert("prodact added");
+                }
+                else {
+                    location.replace("http://localhost:50083/WebArea/Home/LogIn");
+                }
+            });
+}
+
+function Cancel_Adding()
+{
+    location.replace("http://localhost:50083/WebArea/Admin/Index");
+}
+
+</script>
+
+
+
+
+

@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/WebStyleSheet.css" rel="stylesheet" />
+    <script src="~/Scripts/WebJavaScript.js"></script>
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <link href="~/Areas/WebArea/Content/CSS/select2.css" rel="stylesheet" />
+    <script src="~/Areas/WebArea/Content/JS/select2.js"></script>
+
+</head>
+<body>
+    <div class="container-fluid navbar-inverse navbar-fixed-top">
+        <div class="navbar-header header-left">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="~/WebArea/Home/Index">Logo/Brand</a>
+            <div class="header-right container searchDiv">
+   
+                    @*<select class="searchSelectOption">
+                        <option>All Departments</option>
+                        <option>Arts & Crafts</option>
+                        <option>Automotive</option>
+                        <option>Baby</option>
+                        <option>Beauty & Personal Care</option>
+                        <option>Books</option>
+                        <option>Computer</option>
+                        <option>Digital Music</option>
+                        <option>Electronics</option>
+                        <option>Kindle Store</option>
+                        <option>Prime Video</option>
+                        <option>Women's Fashion</option>
+                        <option>Men's Fashion</option>
+                        <option>Girl's Fashion</option>
+                        <option>Boy's Fashion</option>
+                        <option>Deals</option>
+                        <option>Health & Household</option>
+                        <option>Home & Kitchen</option>
+                        <option>Industrial & Scientific</option>
+                        <option>Luggage</option>
+                    </select>*@
+                    <input type="text" placeholder="Search.." name="search" id="search_in_website">
+                    <ul class="dropdown-menu hidden" id="livesearchul"></ul>
+        
+            </div>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <div class="dropdown">
+                        <button class="dropbtn">
+                            Departments
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="#">Departments</a>
+                            <a href="~/WebArea/Home/Prime_Video">Prime Video</a>
+                            <a href="~/WebArea/Home/Music_CDs_Crafts">Music, CDs & Crafts</a>
+                            <a href="~/WebArea/Home/Digital_Music">Digital Music</a>
+                            <a href="~/WebArea/Home/Kindle_Store">Kindle Store</a>
+                            <a href="~/WebArea/Home/Arts_Crafts">Arts & Crafts</a>
+                            <a href="~/WebArea/Home/Automotive">Automotive</a>
+                            <a href="~/WebArea/Home/Baby">Baby</a>
+                            <a href="~/WebArea/Home/Beauty_Personal">Beauty & Personal</a>
+                            <a href="~/WebArea/Home/Books">Books</a>
+                            <a href="~/WebArea/Home/Computers">Computers</a>
+                            <a href="~/WebArea/Home/Electronics">Electronics</a>
+                            <a href="~/WebArea/Home/Womens_Fashion">Women's Fashion</a>
+                            <a href="~/WebArea/Home/Mens_Fashion">Men's Fashion</a>
+                            <a href="~/WebArea/Home/Girls_Fashion">Girl's Fashion</a>
+                            @*<a href="~/WebArea/Home/Boys_Fashion">Boy's Fashion</a>
+                                <a href="~/WebArea/Home/Health_Household">Health & Household</a>
+                                <a href="~/WebArea/Home/Home_Kitchen">Home & Kitchen</a>
+                                <a href="~/WebArea/Home/Industrial_Scientific">Industrial & Scientific</a>
+                                <a href="~/WebArea/Home/Luggage">Luggage</a>
+                                <a href="~/WebArea/Home/Movies_Television">Movies & Television</a>
+                                <a href="~/WebArea/Home/Pet_Supplies">Pet Supplies</a>
+                                <a href="~/WebArea/Home/Software">Software</a>
+                                <a href="~/WebArea/Home/Sports_Outdoors">Sports & Outdoors</a>
+                                <a href="~/WebArea/Home/Tools_Home_Improvment">Tools & Home Improvment</a>
+                                <a href="~/WebArea/Home/Toys_Games">Toys & Games</a>
+                                <a href="~/WebArea/Home/Video_Games">Video Games</a>
+                                <a href="~/WebArea/Home/Deals">Deals</a>*@
+                        </div>
+                    </div>
+                </li>
+                @*<li><a href="#">Your Account</a></li>*@
+                <li><a href="~/WebArea/Home/TodaysDeal">Today's Deal</a></li>
+                @*<li><a href="#">Gift Card</a></li>
+                    <li><a href="#">Registry</a></li>
+                    <li><a href="#">Sell</a></li>
+                    <li><a href="#">Help</a></li>*@
+                <li id="shopping-cart-li">
+                    <a href="~/WebArea/Home/Cart" style="color:white;">
+                        <table>
+                            <tr>
+                                <th rowspan="2">
+                                    <i class="fa fa-shopping-cart" style="font-size:35px;"></i>
+                                </th>
+                                <td id="cart-counting">
+                                    0
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Cart</td>
+                            </tr>
+                        </table>
+                    </a>
+
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="~/WebArea/Home/TodaysDeal" style="color:white;">Shop Today's Deal <i class="fa fa-shopping-bag"></i></a></li>
+                <li><a href="~/WebArea/Home/LogIn" style="color:white;" id="logIn" onclick="logInOrlogOut()"><i class="fa fa-arrow-right"></i></a></li>
+                <li><a href="~/WebArea/Home/SignIn" style="color:white;">Sign In <i class="fa fa-sign-in"></i></a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            var url = "/WebArea/Admin/IsLogIn";
+            $.post(url, {}, function (data) {
+                if (data == "True") {
+                    document.getElementById("logIn").innerText = "Log Out";
+                }
+
+                else {
+                    document.getElementById("logIn").innerText = "Log In";
+                }
+            });
+
+            var ID = 0;
+            $.post("/WebArea/Home/AddProductInCart", { ID: ID }, function (data) {
+                document.getElementById("cart-counting").innerText = data;
+            });
+
+            $("#search_in_website").val("");
+
+            $("#search_in_website").keyup(function (e) {
+
+                if (e.keyCode == 13) {
+                    var searchText = $("#search_in_website").val();
+
+
+                    if (searchText == "" || searchText == " ") return false;
+
+                    window.location.href = "/WebArea/Home/Search/" +searchText;
+
+                }
+            });
+
+        });
+
+
+
+        function logInOrlogOut() {
+            var text = document.getElementById("logIn").innerText;
+            if (text == "Log Out") {
+                var url = "/WebArea/Admin/Logout";
+                $.post(url, {}, function () {
+                });
+            }
+        }
+
+
+    </script>
+
+    <div class="container body-content">
+
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+
+</body>
+</html>
